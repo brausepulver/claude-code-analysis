@@ -189,11 +189,13 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
             legend_elements.append((name, color, None))
     
     # Styling
-    ax.set_title('GitHub activity (co/authored commits)', 
-                fontsize=24, fontweight='bold', color='#2c3e50', pad=35)
-    ax.set_xlabel('Date', fontsize=20, color='#34495e')
-    ax.set_ylabel('Cumulative Commits', fontsize=20, color='#34495e')
-    
+    title_color = 'black' # '#2c3e50'
+    ax.set_title('GitHub activity (co/authored commits)', fontsize=24, fontweight='bold', color=title_color, pad=35)
+
+    axis_color = 'black' # '#34495e'
+    ax.set_xlabel('Date', fontsize=20, color=axis_color)
+    ax.set_ylabel('Cumulative Commits', fontsize=20, color=axis_color)
+
     # Format y-axis with nice numbers
     ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{int(x/1000)}K' if x >= 1000 else str(int(x))))
     
@@ -234,7 +236,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
         
         # Legend text 
         ax.text(0.07, y_pos, name, transform=ax.transAxes, fontsize=18,
-               fontweight='medium', color='#2c3e50', va='center')
+               fontweight='medium', color=title_color, va='center')
     
     # Add clean white background
     ax.set_facecolor('white')
