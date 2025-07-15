@@ -90,7 +90,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
     ax.spines['bottom'].set_color('#e0e0e0')
     
     # Fixed end date for consistent comparison
-    min_end_date = datetime(2025, 7, 8)
+    min_end_date = datetime(2025, 7, 14)
     print(f"Using fixed end date for comparison: {min_end_date.strftime('%Y-%m-%d')}")
     
     max_commits = 0
