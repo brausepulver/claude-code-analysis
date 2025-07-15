@@ -237,7 +237,7 @@ if __name__ == "__main__":
     # Format: (display_name, username, launch_date, email)
     # email is optional - set to None if not needed
     users = [
-        ("Claude", "claude", datetime(2025, 2, 24), None),
+        ("Claude Code", "claude", datetime(2025, 2, 24), None),
         ("Jules", "google-labs-jules[bot]", datetime(2025, 2, 24), None),
         # ("Windsurf", "windsurf-bot[bot]", datetime(2025, 2, 24), None),
         ("Cursor", "cursoragent", datetime(2025, 2, 24), None),

@@ -71,7 +71,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
     
     # AI assistant colors from their icons
     colors = {
-        'Claude': '#D97554',      # Claude orange
+        'Claude Code': '#D97554',      # Claude orange
         'Jules': '#715CD7',       # Jules purple
         'Cursor': '#000000',      # Cursor black  
         'Copilot (coauthored only)': '#F6F8FA',     # Copilot light gray (back to original)
@@ -159,7 +159,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
         
         # Download and prepare avatar for legend
         username_map = {
-            'Claude': 'icons/claude.png',
+            'Claude Code': 'icons/claude.png',
             'Jules': 'icons/jules.png', 
             'Cursor': 'icons/cursor.png',
             'Copilot (coauthored only)': 'icons/copilot.png',
@@ -175,7 +175,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
             except:
                 # Fallback to GitHub avatar if local icon not found
                 github_usernames = {
-                    'Claude': 'claude-ai',
+                    'Claude Code': 'claude-ai',
                     'Jules': 'google-labs-jules[bot]', 
                     'Cursor': 'cursor-ai',
                     'Copilot (coauthored only)': 'github-copilot',

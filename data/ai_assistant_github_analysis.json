@@ -2,7 +2,7 @@
   "analysis_date": "2025-07-15T03:42:26.296630",
   "users": [
     {
-      "display_name": "Claude",
+      "display_name": "Claude Code",
       "username": "claude",
       "overall_stats": {
         "commits_coauthored": 548969,
