@@ -207,7 +207,7 @@ if __name__ == "__main__":
         ("Jules", "google-labs-jules[bot]", datetime(2025, 2, 24)),
         # ("Windsurf", "windsurf-bot[bot]", datetime(2025, 2, 24)),
         ("Cursor", "cursoragent", datetime(2025, 2, 24)),
-        ("Copilot", "Copilot", datetime(2025, 2, 24))
+        ("Copilot (coauthored only)", "Copilot", datetime(2025, 2, 24))
     ]
     
     all_data = {

@@ -476,7 +476,7 @@
       ]
     },
     {
-      "display_name": "Copilot",
+      "display_name": "Copilot (coauthored only)",
       "username": "Copilot",
       "overall_stats": {
         "commits_coauthored": 91845,

@@ -74,7 +74,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
         'Claude': '#D97554',      # Claude orange
         'Jules': '#715CD7',       # Jules purple
         'Cursor': '#000000',      # Cursor black  
-        'Copilot': '#F6F8FA',     # Copilot light gray (back to original)
+        'Copilot (coauthored only)': '#F6F8FA',     # Copilot light gray (back to original)
         'Windsurf': '#FECA57'     # Warm yellow
     }
     
@@ -125,7 +125,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
             primary = week['commits_primary_author'] if week['commits_primary_author'] is not None else 0
             
             # For Copilot, only count co-authored commits due to data issues with primary author
-            if name == 'Copilot':
+            if name == 'Copilot (coauthored only)':
                 week_total = coauthored
             else:
                 week_total = coauthored + primary
@@ -145,7 +145,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
         color = colors.get(name, '#333333')
         
         # Simple line plotting - xkcd style handles the squiggly appearance
-        if name == 'Copilot':
+        if name == 'Copilot (coauthored only)':
             # Add grayer border for light Copilot color visibility
             ax.plot(dates_array, commits_array, color='#888888', linewidth=5, 
                    alpha=0.9, zorder=8)
@@ -162,7 +162,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
             'Claude': 'icons/claude.png',
             'Jules': 'icons/jules.png', 
             'Cursor': 'icons/cursor.png',
-            'Copilot': 'icons/copilot.png',
+            'Copilot (coauthored only)': 'icons/copilot.png',
             # 'Windsurf': 'windsurf-ai'  # Commented out
         }
         
@@ -178,7 +178,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
                     'Claude': 'claude-ai',
                     'Jules': 'google-labs-jules[bot]', 
                     'Cursor': 'cursor-ai',
-                    'Copilot': 'github-copilot',
+                    'Copilot (coauthored only)': 'github-copilot',
                 }
                 avatar = download_github_avatar(github_usernames.get(name, name.lower()))
         
@@ -189,7 +189,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
             legend_elements.append((name, color, None))
     
     # Styling
-    ax.set_title('GitHub activity (coauthored commits)', 
+    ax.set_title('GitHub activity (co/authored commits)', 
                 fontsize=24, fontweight='bold', color='#2c3e50', pad=35)
     ax.set_xlabel('Date', fontsize=20, color='#34495e')
     ax.set_ylabel('Cumulative Commits', fontsize=20, color='#34495e')
@@ -262,7 +262,7 @@ def plot_commit_breakdown(data, save_path="plots/commit_breakdown_chart.png"):
         stats = user_data['overall_stats']
         
         # For Copilot, only show co-authored commits due to primary author data issues
-        if user_data['display_name'] == 'Copilot':
+        if user_data['display_name'] == 'Copilot (coauthored only)':
             coauthored.append(stats.get('commits_coauthored', 0) or 0)
             primary.append(0)  # Don't show primary author commits for Copilot
         else:
