@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+import argparse
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 import time
@@ -56,7 +57,11 @@ def get_coauthored_commits(username, token, date_range=None, email=None):
     if email:
         query_parts.append(f'co-authored-by:{email}')
     
-    query = ' OR '.join(query_parts) if query_parts else 'co-authored-by:nonexistent'
+    # Wrap OR queries in parentheses to avoid validation errors
+    if len(query_parts) > 1:
+        query = f'({" OR ".join(query_parts)})'
+    else:
+        query = query_parts[0]
     
     if date_range:
         query += f' committer-date:{date_range}'
@@ -85,7 +90,11 @@ def get_commits_by_author(username, token, date_range=None, email=None):
     if email:
         query_parts.append(f'author-email:{email}')
     
-    query = ' OR '.join(query_parts) if query_parts else 'author:nonexistent'
+    # Wrap OR queries in parentheses to avoid validation errors
+    if len(query_parts) > 1:
+        query = f'({" OR ".join(query_parts)})'
+    else:
+        query = query_parts[0]
     
     if date_range:
         query += f' committer-date:{date_range}'
@@ -117,7 +126,12 @@ def get_activity(username, token, search_type, date_range=None, email=None):
             query_parts.append(f'is:issue "{username}" OR mentions:{username} OR "co-authored-by {username}"')
         if email:
             query_parts.append(f'is:issue "{email}" OR "co-authored-by {email}"')
-        query = ' OR '.join(query_parts) if query_parts else 'is:issue nonexistent'
+        
+        if len(query_parts) > 1:
+            query = f'({" OR ".join(query_parts)})'
+        else:
+            query = query_parts[0]
+            
     elif search_type == 'repositories':
         # Repositories with username/email in name/description
         query_parts = []
@@ -125,7 +139,12 @@ def get_activity(username, token, search_type, date_range=None, email=None):
             query_parts.append(f'{username} in:name,description,readme')
         if email:
             query_parts.append(f'{email} in:name,description,readme')
-        query = ' OR '.join(query_parts) if query_parts else 'nonexistent in:name'
+        
+        if len(query_parts) > 1:
+            query = f'({" OR ".join(query_parts)})'
+        else:
+            query = query_parts[0]
+            
     elif search_type == 'code':
         # Code files mentioning username/email
         query_parts = []
@@ -133,7 +152,11 @@ def get_activity(username, token, search_type, date_range=None, email=None):
             query_parts.append(f'"co-authored-by {username}" OR "{username} code" OR "generated with {username}"')
         if email:
             query_parts.append(f'"co-authored-by {email}" OR "{email} code"')
-        query = ' OR '.join(query_parts) if query_parts else '"nonexistent"'
+        
+        if len(query_parts) > 1:
+            query = f'({" OR ".join(query_parts)})'
+        else:
+            query = query_parts[0]
     else:
         return {'error': f'Unsupported search type: {search_type}'}
     
@@ -228,6 +251,11 @@ def collect_weekly_growth(username, token, start_date, email=None):
     return weekly_data
 
 if __name__ == "__main__":
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description='Analyze GitHub activity for AI assistants')
+    parser.add_argument('--agent', type=str, help='Specific agent to analyze by display name (e.g., "Claude Code", "Jules", "Cursor", "Copilot (coauthored only)", "Codex")')
+    args = parser.parse_args()
+    
     load_dotenv()
     token = os.getenv('GITHUB_TOKEN')
 
@@ -237,17 +265,41 @@ if __name__ == "__main__":
     # Format: (display_name, username, launch_date, email)
     # email is optional - set to None if not needed
     users = [
-        ("Claude Code", "claude", datetime(2025, 2, 24), None),
+        ("Claude Code", "claude", datetime(2025, 2, 24), "noreply@anthropic.com"),
         ("Jules", "google-labs-jules[bot]", datetime(2025, 2, 24), None),
         # ("Windsurf", "windsurf-bot[bot]", datetime(2025, 2, 24), None),
         ("Cursor", "cursoragent", datetime(2025, 2, 24), None),
-        ("Copilot (coauthored only)", "Copilot", datetime(2025, 2, 24), None)
+        ("Copilot (coauthored only)", "Copilot", datetime(2025, 2, 24), None),
+        ("Codex", "Codex", datetime(2025, 2, 24), "codex@openai.com"),
     ]
     
-    all_data = {
-        "analysis_date": datetime.now().isoformat(),
-        "users": []
-    }
+    # Filter users if specific agent requested
+    if args.agent:
+        selected_users = [user for user in users if user[0].lower() == args.agent.lower()]
+        if not selected_users:
+            print(f"Agent '{args.agent}' not found. Available agents:")
+            for display_name, username, launch_date, email in users:
+                print(f"  {display_name}")
+            exit(1)
+        
+        users = selected_users
+        print(f"Analyzing only: {users[0][0]}")
+    
+    # Load existing data if available
+    output_file = "data/ai_assistant_github_analysis.json"
+    if os.path.exists(output_file):
+        with open(output_file, 'r') as f:
+            all_data = json.load(f)
+        print(f"Loaded existing data from {output_file}")
+    else:
+        all_data = {
+            "analysis_date": datetime.now().isoformat(),
+            "users": []
+        }
+        print("Starting fresh analysis")
+    
+    # Update analysis date
+    all_data["analysis_date"] = datetime.now().isoformat()
     
     # Collect data for each user
     for i, (display_name, username, launch_date, email) in enumerate(users):
@@ -260,7 +312,19 @@ if __name__ == "__main__":
         print(f"Collecting weekly growth data for {display_name}...")
         user_stats["weekly_growth"] = collect_weekly_growth(username, token, launch_date, email=email)
         
-        all_data["users"].append(user_stats)
+        # Find existing user data and update it, or add new user
+        existing_user_index = None
+        for idx, existing_user in enumerate(all_data["users"]):
+            if existing_user.get("username") == username:
+                existing_user_index = idx
+                break
+        
+        if existing_user_index is not None:
+            all_data["users"][existing_user_index] = user_stats
+            print(f"Updated existing data for {display_name}")
+        else:
+            all_data["users"].append(user_stats)
+            print(f"Added new data for {display_name}")
         
         print(f"Completed analysis for {display_name}")
         
@@ -270,7 +334,6 @@ if __name__ == "__main__":
             time.sleep(30)
     
     # Write to JSON file
-    output_file = "data/ai_assistant_github_analysis.json"
     with open(output_file, 'w') as f:
         json.dump(all_data, f, indent=2)
     
@@ -278,9 +341,20 @@ if __name__ == "__main__":
     
     # Print summary
     print(f"\n=== Summary ===")
-    for user_data in all_data["users"]:
-        name = user_data["display_name"]
-        stats = user_data["overall_stats"]
-        coauth = stats.get("commits_coauthored", 0) or 0
-        primary = stats.get("commits_primary_author", 0) or 0
-        print(f"{name}: {coauth:,} co-authored + {primary:,} primary = {coauth + primary:,} total commits")
+    if args.agent:
+        # Show only the requested agent
+        for user_data in all_data["users"]:
+            if user_data.get("display_name").lower() == args.agent.lower():
+                name = user_data["display_name"]
+                stats = user_data["overall_stats"]
+                coauth = stats.get("commits_coauthored", 0) or 0
+                primary = stats.get("commits_primary_author", 0) or 0
+                print(f"{name}: {coauth:,} co-authored + {primary:,} primary = {coauth + primary:,} total commits")
+    else:
+        # Show all agents
+        for user_data in all_data["users"]:
+            name = user_data["display_name"]
+            stats = user_data["overall_stats"]
+            coauth = stats.get("commits_coauthored", 0) or 0
+            primary = stats.get("commits_primary_author", 0) or 0
+            print(f"{name}: {coauth:,} co-authored + {primary:,} primary = {coauth + primary:,} total commits")

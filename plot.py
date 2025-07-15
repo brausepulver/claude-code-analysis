@@ -75,7 +75,8 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
         'Jules': '#715CD7',       # Jules purple
         'Cursor': '#000000',      # Cursor black  
         'Copilot (coauthored only)': '#F6F8FA',     # Copilot light gray (back to original)
-        'Windsurf': '#FECA57'     # Warm yellow
+        'Windsurf': '#FECA57',     # Warm yellow
+        'Codex': 'white',
     }
     
     # Create figure with clean styling
@@ -147,7 +148,12 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
         # Simple line plotting - xkcd style handles the squiggly appearance
         if name == 'Copilot (coauthored only)':
             # Add grayer border for light Copilot color visibility
-            ax.plot(dates_array, commits_array, color='#888888', linewidth=5, 
+            ax.plot(dates_array, commits_array, color='#888888', linewidth=6, 
+                   alpha=0.9, zorder=8)
+            ax.plot(dates_array, commits_array, color=color, linewidth=3.5, 
+                   alpha=0.9, label=name, zorder=9)
+        elif name == 'Codex':
+            ax.plot(dates_array, commits_array, color='#333333', linewidth=6, 
                    alpha=0.9, zorder=8)
             ax.plot(dates_array, commits_array, color=color, linewidth=3.5, 
                    alpha=0.9, label=name, zorder=9)
@@ -163,6 +169,7 @@ def plot_weekly_commits(data, save_path="plots/weekly_commits_chart.png"):
             'Jules': 'icons/jules.png', 
             'Cursor': 'icons/cursor.png',
             'Copilot (coauthored only)': 'icons/copilot.png',
+            'Codex': 'icons/codex.png',
             # 'Windsurf': 'windsurf-ai'  # Commented out
         }
         

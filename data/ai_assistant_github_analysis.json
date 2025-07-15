@@ -1,20 +1,21 @@
 {
-  "analysis_date": "2025-07-15T03:42:26.296630",
+  "analysis_date": "2025-07-15T13:42:25.154883",
   "users": [
     {
       "display_name": "Claude Code",
       "username": "claude",
+      "email": null,
       "overall_stats": {
-        "commits_coauthored": 548969,
-        "commits_primary_author": 5322,
-        "repositories_mentioning": 123759
+        "commits_coauthored": 554438,
+        "commits_primary_author": 5443,
+        "repositories_mentioning": 124164
       },
       "weekly_growth": [
         {
           "period": "Feb 24-02",
           "start_date": "2025-02-24",
           "end_date": "2025-03-02",
-          "commits_coauthored": 3152,
+          "commits_coauthored": 3154,
           "commits_primary_author": 0
         },
         {
@@ -28,7 +29,7 @@
           "period": "Mar 10-16",
           "start_date": "2025-03-10",
           "end_date": "2025-03-16",
-          "commits_coauthored": 5154,
+          "commits_coauthored": 5149,
           "commits_primary_author": 0
         },
         {
@@ -49,7 +50,7 @@
           "period": "Mar 31-06",
           "start_date": "2025-03-31",
           "end_date": "2025-04-06",
-          "commits_coauthored": 4722,
+          "commits_coauthored": 4720,
           "commits_primary_author": 0
         },
         {
@@ -70,7 +71,7 @@
           "period": "Apr 21-27",
           "start_date": "2025-04-21",
           "end_date": "2025-04-27",
-          "commits_coauthored": 2919,
+          "commits_coauthored": 2917,
           "commits_primary_author": 0
         },
         {
@@ -84,7 +85,7 @@
           "period": "May 05-11",
           "start_date": "2025-05-05",
           "end_date": "2025-05-11",
-          "commits_coauthored": 4748,
+          "commits_coauthored": 4750,
           "commits_primary_author": 0
         },
         {
@@ -98,73 +99,74 @@
           "period": "May 19-25",
           "start_date": "2025-05-19",
           "end_date": "2025-05-25",
-          "commits_coauthored": 11825,
+          "commits_coauthored": 11833,
           "commits_primary_author": 0
         },
         {
           "period": "May 26-01",
           "start_date": "2025-05-26",
           "end_date": "2025-06-01",
-          "commits_coauthored": 22806,
+          "commits_coauthored": 22800,
           "commits_primary_author": 5
         },
         {
           "period": "Jun 02-08",
           "start_date": "2025-06-02",
           "end_date": "2025-06-08",
-          "commits_coauthored": 31292,
+          "commits_coauthored": 31312,
           "commits_primary_author": 140
         },
         {
           "period": "Jun 09-15",
           "start_date": "2025-06-09",
           "end_date": "2025-06-15",
-          "commits_coauthored": 50917,
+          "commits_coauthored": 51013,
           "commits_primary_author": 412
         },
         {
           "period": "Jun 16-22",
           "start_date": "2025-06-16",
           "end_date": "2025-06-22",
-          "commits_coauthored": 71038,
+          "commits_coauthored": 71100,
           "commits_primary_author": 966
         },
         {
           "period": "Jun 23-29",
           "start_date": "2025-06-23",
           "end_date": "2025-06-29",
-          "commits_coauthored": 88787,
-          "commits_primary_author": 1205
+          "commits_coauthored": 88795,
+          "commits_primary_author": 1204
         },
         {
           "period": "Jun 30-06",
           "start_date": "2025-06-30",
           "end_date": "2025-07-06",
-          "commits_coauthored": 92825,
+          "commits_coauthored": 92629,
           "commits_primary_author": 1186
         },
         {
           "period": "Jul 07-13",
           "start_date": "2025-07-07",
           "end_date": "2025-07-13",
-          "commits_coauthored": 105228,
+          "commits_coauthored": 105158,
           "commits_primary_author": 1099
         },
         {
           "period": "Jul 14-15",
           "start_date": "2025-07-14",
           "end_date": "2025-07-15",
-          "commits_coauthored": 17443,
-          "commits_primary_author": 186
+          "commits_coauthored": 22989,
+          "commits_primary_author": 309
         }
       ]
     },
     {
       "display_name": "Jules",
       "username": "google-labs-jules[bot]",
+      "email": null,
       "overall_stats": {
-        "commits_coauthored": 3700,
-        "commits_primary_author": 118542,
+        "commits_coauthored": 3716,
+        "commits_primary_author": 119307,
         "repositories_mentioning": 44
       },
       "weekly_growth": [
@@ -257,72 +259,73 @@
           "start_date": "2025-05-19",
           "end_date": "2025-05-25",
           "commits_coauthored": 492,
-          "commits_primary_author": 13638
+          "commits_primary_author": 13682
         },
         {
           "period": "May 26-01",
           "start_date": "2025-05-26",
           "end_date": "2025-06-01",
           "commits_coauthored": 517,
-          "commits_primary_author": 16947
+          "commits_primary_author": 16964
         },
         {
           "period": "Jun 02-08",
           "start_date": "2025-06-02",
           "end_date": "2025-06-08",
           "commits_coauthored": 407,
-          "commits_primary_author": 19806
+          "commits_primary_author": 19815
         },
         {
           "period": "Jun 09-15",
           "start_date": "2025-06-09",
           "end_date": "2025-06-15",
-          "commits_coauthored": 378,
-          "commits_primary_author": 16003
+          "commits_coauthored": 379,
+          "commits_primary_author": 16040
         },
         {
           "period": "Jun 16-22",
           "start_date": "2025-06-16",
           "end_date": "2025-06-22",
-          "commits_coauthored": 582,
-          "commits_primary_author": 15798
+          "commits_coauthored": 583,
+          "commits_primary_author": 15824
         },
         {
           "period": "Jun 23-29",
           "start_date": "2025-06-23",
           "end_date": "2025-06-29",
           "commits_coauthored": 530,
-          "commits_primary_author": 11376
+          "commits_primary_author": 11410
         },
         {
           "period": "Jun 30-06",
           "start_date": "2025-06-30",
           "end_date": "2025-07-06",
           "commits_coauthored": 343,
-          "commits_primary_author": 10924
+          "commits_primary_author": 10871
         },
         {
           "period": "Jul 07-13",
           "start_date": "2025-07-07",
           "end_date": "2025-07-13",
           "commits_coauthored": 315,
-          "commits_primary_author": 11306
+          "commits_primary_author": 11326
         },
         {
           "period": "Jul 14-15",
           "start_date": "2025-07-14",
           "end_date": "2025-07-15",
-          "commits_coauthored": 65,
-          "commits_primary_author": 2105
+          "commits_coauthored": 79,
+          "commits_primary_author": 2736
         }
       ]
     },
     {
       "display_name": "Cursor",
       "username": "cursoragent",
+      "email": null,
       "overall_stats": {
-        "commits_coauthored": 4625,
-        "commits_primary_author": 20387,
+        "commits_coauthored": 4732,
+        "commits_primary_author": 20848,
         "repositories_mentioning": 10
       },
       "weekly_growth": [
@@ -422,66 +425,67 @@
           "start_date": "2025-05-26",
           "end_date": "2025-06-01",
           "commits_coauthored": 3,
-          "commits_primary_author": 131
+          "commits_primary_author": 130
         },
         {
           "period": "Jun 02-08",
           "start_date": "2025-06-02",
           "end_date": "2025-06-08",
           "commits_coauthored": 106,
-          "commits_primary_author": 604
+          "commits_primary_author": 601
         },
         {
           "period": "Jun 09-15",
           "start_date": "2025-06-09",
           "end_date": "2025-06-15",
           "commits_coauthored": 117,
-          "commits_primary_author": 874
+          "commits_primary_author": 877
         },
         {
           "period": "Jun 16-22",
           "start_date": "2025-06-16",
           "end_date": "2025-06-22",
           "commits_coauthored": 114,
-          "commits_primary_author": 1241
+          "commits_primary_author": 1257
         },
         {
           "period": "Jun 23-29",
           "start_date": "2025-06-23",
           "end_date": "2025-06-29",
           "commits_coauthored": 172,
-          "commits_primary_author": 1543
+          "commits_primary_author": 1551
         },
         {
           "period": "Jun 30-06",
           "start_date": "2025-06-30",
           "end_date": "2025-07-06",
-          "commits_coauthored": 1624,
-          "commits_primary_author": 7244
+          "commits_coauthored": 1626,
+          "commits_primary_author": 7250
         },
         {
           "period": "Jul 07-13",
           "start_date": "2025-07-07",
           "end_date": "2025-07-13",
-          "commits_coauthored": 2147,
-          "commits_primary_author": 7532
+          "commits_coauthored": 2141,
+          "commits_primary_author": 7547
         },
         {
           "period": "Jul 14-15",
           "start_date": "2025-07-14",
           "end_date": "2025-07-15",
-          "commits_coauthored": 338,
-          "commits_primary_author": 1118
+          "commits_coauthored": 449,
+          "commits_primary_author": 1533
         }
       ]
     },
     {
       "display_name": "Copilot (coauthored only)",
       "username": "Copilot",
+      "email": null,
       "overall_stats": {
-        "commits_coauthored": 91845,
+        "commits_coauthored": 91996,
         "commits_primary_author": null,
-        "repositories_mentioning": 196976
+        "repositories_mentioning": 197243
       },
       "weekly_growth": [
         {
@@ -489,147 +493,147 @@
           "start_date": "2025-02-24",
           "end_date": "2025-03-02",
           "commits_coauthored": 567,
-          "commits_primary_author": 42470846
+          "commits_primary_author": 41460866
         },
         {
           "period": "Mar 03-09",
           "start_date": "2025-03-03",
           "end_date": "2025-03-09",
-          "commits_coauthored": 2366,
-          "commits_primary_author": 28134898
+          "commits_coauthored": 2367,
+          "commits_primary_author": 28138713
         },
         {
           "period": "Mar 10-16",
           "start_date": "2025-03-10",
           "end_date": "2025-03-16",
-          "commits_coauthored": 527,
-          "commits_primary_author": 41585001
+          "commits_coauthored": 529,
+          "commits_primary_author": 41589213
         },
         {
           "period": "Mar 17-23",
           "start_date": "2025-03-17",
           "end_date": "2025-03-23",
-          "commits_coauthored": 795,
-          "commits_primary_author": 53467315
+          "commits_coauthored": 796,
+          "commits_primary_author": 53472051
         },
         {
           "period": "Mar 24-30",
           "start_date": "2025-03-24",
           "end_date": "2025-03-30",
-          "commits_coauthored": 1625,
-          "commits_primary_author": 48667742
+          "commits_coauthored": 1626,
+          "commits_primary_author": 48669366
         },
         {
           "period": "Mar 31-06",
           "start_date": "2025-03-31",
           "end_date": "2025-04-06",
           "commits_coauthored": 2882,
-          "commits_primary_author": 41780834
+          "commits_primary_author": 41783566
         },
         {
           "period": "Apr 07-13",
           "start_date": "2025-04-07",
           "end_date": "2025-04-13",
-          "commits_coauthored": 3137,
-          "commits_primary_author": 33795767
+          "commits_coauthored": 3138,
+          "commits_primary_author": 33798950
         },
         {
           "period": "Apr 14-20",
           "start_date": "2025-04-14",
           "end_date": "2025-04-20",
-          "commits_coauthored": 2539,
-          "commits_primary_author": 29346714
+          "commits_coauthored": 2544,
+          "commits_primary_author": 29350790
         },
         {
           "period": "Apr 21-27",
           "start_date": "2025-04-21",
           "end_date": "2025-04-27",
-          "commits_coauthored": 2546,
-          "commits_primary_author": 27577216
+          "commits_coauthored": 2545,
+          "commits_primary_author": 27583431
         },
         {
           "period": "Apr 28-04",
           "start_date": "2025-04-28",
           "end_date": "2025-05-04",
-          "commits_coauthored": 3067,
-          "commits_primary_author": 26645895
+          "commits_coauthored": 3076,
+          "commits_primary_author": 26649872
         },
         {
           "period": "May 05-11",
           "start_date": "2025-05-05",
           "end_date": "2025-05-11",
-          "commits_coauthored": 3568,
-          "commits_primary_author": 35248940
+          "commits_coauthored": 3576,
+          "commits_primary_author": 35252137
         },
         {
           "period": "May 12-18",
           "start_date": "2025-05-12",
           "end_date": "2025-05-18",
-          "commits_coauthored": 4071,
-          "commits_primary_author": 28234746
+          "commits_coauthored": 4075,
+          "commits_primary_author": 28240565
         },
         {
           "period": "May 19-25",
           "start_date": "2025-05-19",
           "end_date": "2025-05-25",
-          "commits_coauthored": 5356,
-          "commits_primary_author": 29058665
+          "commits_coauthored": 5363,
+          "commits_primary_author": 29066484
         },
         {
           "period": "May 26-01",
           "start_date": "2025-05-26",
           "end_date": "2025-06-01",
-          "commits_coauthored": 5842,
-          "commits_primary_author": 29066691
+          "commits_coauthored": 5850,
+          "commits_primary_author": 29072273
         },
         {
           "period": "Jun 02-08",
           "start_date": "2025-06-02",
           "end_date": "2025-06-08",
-          "commits_coauthored": 5847,
-          "commits_primary_author": 27767230
+          "commits_coauthored": 5856,
+          "commits_primary_author": 27773220
         },
         {
           "period": "Jun 09-15",
           "start_date": "2025-06-09",
           "end_date": "2025-06-15",
-          "commits_coauthored": 4943,
-          "commits_primary_author": 28886623
+          "commits_coauthored": 4950,
+          "commits_primary_author": 28896907
         },
         {
           "period": "Jun 16-22",
           "start_date": "2025-06-16",
           "end_date": "2025-06-22",
-          "commits_coauthored": 4868,
-          "commits_primary_author": 27149697
+          "commits_coauthored": 4875,
+          "commits_primary_author": 27158060
         },
         {
           "period": "Jun 23-29",
           "start_date": "2025-06-23",
           "end_date": "2025-06-29",
-          "commits_coauthored": 4418,
-          "commits_primary_author": 28570704
+          "commits_coauthored": 4420,
+          "commits_primary_author": 28578194
         },
         {
           "period": "Jun 30-06",
           "start_date": "2025-06-30",
           "end_date": "2025-07-06",
-          "commits_coauthored": 4807,
-          "commits_primary_author": 27966801
+          "commits_coauthored": 4816,
+          "commits_primary_author": 27783343
         },
         {
           "period": "Jul 07-13",
           "start_date": "2025-07-07",
           "end_date": "2025-07-13",
-          "commits_coauthored": 5297,
-          "commits_primary_author": 29622785
+          "commits_coauthored": 5337,
+          "commits_primary_author": 29666383
         },
         {
           "period": "Jul 14-15",
           "start_date": "2025-07-14",
           "end_date": "2025-07-15",
-          "commits_coauthored": 887,
-          "commits_primary_author": 4620085
+          "commits_coauthored": 1187,
+          "commits_primary_author": 6745783
         }
       ]
     }
