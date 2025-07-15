@@ -41,7 +41,7 @@ def rate_limited_get(url, headers=None, params=None, max_retries=3):
     print(f"    Max retries exceeded for {url}")
     return response
 
-def get_coauthored_commits(username, token, date_range=None):
+def get_coauthored_commits(username, token, date_range=None, email=None):
     url = f"https://api.github.com/search/commits"
     
     headers = {
@@ -49,7 +49,15 @@ def get_coauthored_commits(username, token, date_range=None):
         'Accept': 'application/vnd.github.v3+json'
     }
     
-    query = f'co-authored-by:{username}'
+    # Build query with username and/or email
+    query_parts = []
+    if username:
+        query_parts.append(f'co-authored-by:{username}')
+    if email:
+        query_parts.append(f'co-authored-by:{email}')
+    
+    query = ' OR '.join(query_parts) if query_parts else 'co-authored-by:nonexistent'
+    
     if date_range:
         query += f' committer-date:{date_range}'
     
@@ -61,8 +69,8 @@ def get_coauthored_commits(username, token, date_range=None):
     response = rate_limited_get(url, headers=headers, params=params)
     return response.json()
 
-def get_commits_by_author(username, token, date_range=None):
-    """Get commits where username is the primary author"""
+def get_commits_by_author(username, token, date_range=None, email=None):
+    """Get commits where username/email is the primary author"""
     url = f"https://api.github.com/search/commits"
     
     headers = {
@@ -70,7 +78,15 @@ def get_commits_by_author(username, token, date_range=None):
         'Accept': 'application/vnd.github.v3+json'
     }
     
-    query = f'author:{username}'
+    # Build query with username and/or email
+    query_parts = []
+    if username:
+        query_parts.append(f'author:{username}')
+    if email:
+        query_parts.append(f'author-email:{email}')
+    
+    query = ' OR '.join(query_parts) if query_parts else 'author:nonexistent'
+    
     if date_range:
         query += f' committer-date:{date_range}'
     
@@ -82,8 +98,8 @@ def get_commits_by_author(username, token, date_range=None):
     response = rate_limited_get(url, headers=headers, params=params)
     return response.json()
 
-def get_activity(username, token, search_type, date_range=None):
-    """Get activity from GitHub for any username
+def get_activity(username, token, search_type, date_range=None, email=None):
+    """Get activity from GitHub for any username/email
     search_type: 'issues', 'repositories', 'code'
     """
     url = f"https://api.github.com/search/{search_type}"
@@ -95,14 +111,29 @@ def get_activity(username, token, search_type, date_range=None):
     
     # Different search queries for different types
     if search_type == 'issues':
-        # Search for issues and PRs mentioning the user - fix the query format
-        query = f'is:issue "{username}" OR mentions:{username} OR "co-authored-by {username}"'
+        # Search for issues and PRs mentioning the user/email
+        query_parts = []
+        if username:
+            query_parts.append(f'is:issue "{username}" OR mentions:{username} OR "co-authored-by {username}"')
+        if email:
+            query_parts.append(f'is:issue "{email}" OR "co-authored-by {email}"')
+        query = ' OR '.join(query_parts) if query_parts else 'is:issue nonexistent'
     elif search_type == 'repositories':
-        # Repositories with username in name/description
-        query = f'{username} in:name,description,readme'
+        # Repositories with username/email in name/description
+        query_parts = []
+        if username:
+            query_parts.append(f'{username} in:name,description,readme')
+        if email:
+            query_parts.append(f'{email} in:name,description,readme')
+        query = ' OR '.join(query_parts) if query_parts else 'nonexistent in:name'
     elif search_type == 'code':
-        # Code files mentioning username
-        query = f'"co-authored-by {username}" OR "{username} code" OR "generated with {username}"'
+        # Code files mentioning username/email
+        query_parts = []
+        if username:
+            query_parts.append(f'"co-authored-by {username}" OR "{username} code" OR "generated with {username}"')
+        if email:
+            query_parts.append(f'"co-authored-by {email}" OR "{email} code"')
+        query = ' OR '.join(query_parts) if query_parts else '"nonexistent"'
     else:
         return {'error': f'Unsupported search type: {search_type}'}
     
@@ -117,24 +148,25 @@ def get_activity(username, token, search_type, date_range=None):
     response = rate_limited_get(url, headers=headers, params=params)
     return response.json()
 
-def collect_user_stats(display_name, username, token):
+def collect_user_stats(display_name, username, token, email=None):
     """Collect all stats for a user and return as dict"""
     print(f"Collecting data for {display_name}...")
     
     stats = {
         "display_name": display_name,
         "username": username,
+        "email": email,
         "overall_stats": {},
         "weekly_growth": []
     }
     
     # Overall stats
     activities = [
-        ("commits_coauthored", lambda: get_coauthored_commits(username, token)),
-        ("commits_primary_author", lambda: get_commits_by_author(username, token)),
-        # ("issues_mentioning", lambda: get_activity(username, token, 'issues')),  # Disabled - API query issues
-        ("repositories_mentioning", lambda: get_activity(username, token, 'repositories')),
-        # ("code_files_mentioning", lambda: get_activity(username, token, 'code')),  # Disabled - searches code content
+        ("commits_coauthored", lambda: get_coauthored_commits(username, token, email=email)),
+        ("commits_primary_author", lambda: get_commits_by_author(username, token, email=email)),
+        # ("issues_mentioning", lambda: get_activity(username, token, 'issues', email=email)),  # Disabled - API query issues
+        ("repositories_mentioning", lambda: get_activity(username, token, 'repositories', email=email)),
+        # ("code_files_mentioning", lambda: get_activity(username, token, 'code', email=email)),  # Disabled - searches code content
     ]
     
     for stat_name, get_data in activities:
@@ -151,7 +183,7 @@ def collect_user_stats(display_name, username, token):
     
     return stats
 
-def collect_weekly_growth(username, token, start_date):
+def collect_weekly_growth(username, token, start_date, email=None):
     """Collect weekly growth data for both co-authored and primary author commits"""
     print(f"  Weekly commits breakdown:")
     weekly_data = []
@@ -165,11 +197,11 @@ def collect_weekly_growth(username, token, start_date):
         date_range = f"{week_start.strftime('%Y-%m-%d')}..{week_end.strftime('%Y-%m-%d')}"
         
         # Get co-authored commits
-        coauth_result = get_coauthored_commits(username, token, date_range)
+        coauth_result = get_coauthored_commits(username, token, date_range, email=email)
         coauth_count = coauth_result.get('total_count', 0) if 'total_count' in coauth_result else None
         
         # Get primary author commits  
-        primary_result = get_commits_by_author(username, token, date_range)
+        primary_result = get_commits_by_author(username, token, date_range, email=email)
         primary_count = primary_result.get('total_count', 0) if 'total_count' in primary_result else None
         
         week_data = {
@@ -202,12 +234,14 @@ if __name__ == "__main__":
     print("=== AI Assistant Activity Analysis ===")
     
     # Define the users to analyze with their launch dates
+    # Format: (display_name, username, launch_date, email)
+    # email is optional - set to None if not needed
     users = [
-        ("Claude", "claude", datetime(2025, 2, 24)),
-        ("Jules", "google-labs-jules[bot]", datetime(2025, 2, 24)),
-        # ("Windsurf", "windsurf-bot[bot]", datetime(2025, 2, 24)),
-        ("Cursor", "cursoragent", datetime(2025, 2, 24)),
-        ("Copilot (coauthored only)", "Copilot", datetime(2025, 2, 24))
+        ("Claude", "claude", datetime(2025, 2, 24), None),
+        ("Jules", "google-labs-jules[bot]", datetime(2025, 2, 24), None),
+        # ("Windsurf", "windsurf-bot[bot]", datetime(2025, 2, 24), None),
+        ("Cursor", "cursoragent", datetime(2025, 2, 24), None),
+        ("Copilot (coauthored only)", "Copilot", datetime(2025, 2, 24), None)
     ]
     
     all_data = {
@@ -216,15 +250,15 @@ if __name__ == "__main__":
     }
     
     # Collect data for each user
-    for i, (display_name, username, launch_date) in enumerate(users):
+    for i, (display_name, username, launch_date, email) in enumerate(users):
         print(f"\n--- Analyzing {display_name} ---")
         
         # Get overall stats
-        user_stats = collect_user_stats(display_name, username, token)
+        user_stats = collect_user_stats(display_name, username, token, email=email)
         
         # Get weekly growth data
         print(f"Collecting weekly growth data for {display_name}...")
-        user_stats["weekly_growth"] = collect_weekly_growth(username, token, launch_date)
+        user_stats["weekly_growth"] = collect_weekly_growth(username, token, launch_date, email=email)
         
         all_data["users"].append(user_stats)
         
